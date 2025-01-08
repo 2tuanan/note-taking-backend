@@ -29,5 +29,20 @@ class authControllers {
             responseReturn(res, 500, {error: error.message})
         }
     }
+    // End method
+    get_user = async (req, res) => {
+        const {id, role} = req;
+        try {
+            if (role === 'user') {
+                const user = await userModel.findById(id);
+                responseReturn(res, 200, {userInfo: user})
+            } else {
+                console.log('You are not user!')
+            }
+        } catch (error) {
+            
+        }
+    }
+    // End method
 }
 module.exports = new authControllers();
