@@ -11,15 +11,35 @@ const userSchema = new Schema({
     },
     password: {
         type: String,
-        required: true
+        required: true,
+        select: false
     },
     image: {
         type: String,
-        require: true
+        default: ''
     },
     role: {
         type: String,
         default: 'user'
+    },
+    noteList: {
+        type: [
+            {
+                title: {
+                    type: String,
+                    required: true
+                },
+                content: {
+                    type: String,
+                    required: true
+                },
+                date: {
+                    type: Date,
+                    default: Date.now
+                }
+            }
+        ],
+        default: []
     }
-})
+}, {timestamps: true});
 module.exports = model('users', userSchema);
