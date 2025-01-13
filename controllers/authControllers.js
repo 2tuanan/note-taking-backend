@@ -87,8 +87,13 @@ class authControllers {
     get_user = async (req, res) => {
         const {id, role} = req;
         try {
-            const user = await userModel.findById(id);
-            responseReturn(res, 200, {userInfo: user})
+            if (role === 'admin') {
+                const admin = await adminModel.findById(id);
+                responseReturn(res, 200, {userInfo: admin})
+            } else {
+                const user = await userModel.findById(id);
+                responseReturn(res, 200, {userInfo: user})
+            }
         } catch (error) {
             responseReturn(res, 500, {error: 'Internal server error!'})
         }
