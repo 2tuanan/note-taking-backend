@@ -14,6 +14,7 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 app.use('/api', require('./routes/authRoutes'))
+app.use('/api', require('./routes/noteRoutes'))
 
 
 app.get('/', (req, res) => res.send('Backend!'));
