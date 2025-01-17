@@ -20,6 +20,18 @@ class noteControllers {
             }
         }        
     }
+    // End method
+    get_notes = async (req, res) => {
+        const {id} = req;
+        try {
+            const notes = await noteModel.find({userId: id});
+            const totalNotes = await noteModel.find({userId: id}).countDocuments();
+            responseReturn(res, 200, {notes, totalNotes})
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+    // End method
 }
 
 module.exports = new noteControllers();
