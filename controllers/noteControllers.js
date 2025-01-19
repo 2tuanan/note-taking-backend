@@ -1,5 +1,6 @@
 const { responseReturn } = require("../utils/response");
 const noteModel = require("../models/noteModel");
+const { Types } = require('mongoose');
 
 class noteControllers {
     add_note = async (req, res) => {
@@ -9,12 +10,13 @@ class noteControllers {
             return responseReturn(res, 400, {error: 'Please fill all fields!'})
         } else {
             try {
-                await noteModel.create({
+                const newNote = await noteModel.create({
+                    id: new Types.ObjectId(),
                     userId: id,
                     title,
                     content
                 })
-                responseReturn(res, 200, {message: 'Note added!'})
+                responseReturn(res, 200, {message: 'Note added!', note: newNote})
             } catch (error) {
                 responseReturn(res, 500, {error: 'Internal Server Error!'})
             }
