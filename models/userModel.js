@@ -21,25 +21,6 @@ const userSchema = new Schema({
     role: {
         type: String,
         default: 'user'
-    },
-    noteList: {
-        type: [
-            {
-                title: {
-                    type: String,
-                    required: true
-                },
-                content: {
-                    type: String,
-                    required: true
-                },
-                date: {
-                    type: Date,
-                    default: Date.now
-                }
-            }
-        ],
-        default: []
     }
 }, {timestamps: true});
 module.exports = model('users', userSchema);
