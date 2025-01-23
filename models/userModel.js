@@ -21,6 +21,10 @@ const userSchema = new Schema({
     role: {
         type: String,
         default: 'user'
+    },
+    noteTotal: {
+        type: Number,
+        default: 0
     }
 }, {timestamps: true});
 module.exports = model('users', userSchema);

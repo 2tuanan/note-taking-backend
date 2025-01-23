@@ -1,6 +1,7 @@
 const { responseReturn } = require("../utils/response");
 const noteModel = require("../models/noteModel");
 const { Types } = require('mongoose');
+const userModel = require("../models/userModel");
 
 class noteControllers {
     add_note = async (req, res) => {
@@ -16,6 +17,8 @@ class noteControllers {
                     title,
                     content
                 })
+                await newNote.save();
+                await userModel.findByIdAndUpdate(id, { $inc: {noteTotal: 1} });
                 responseReturn(res, 200, {message: 'Note added!', note: newNote})
             } catch (error) {
                 responseReturn(res, 500, {error: 'Internal Server Error!'})
@@ -41,6 +44,7 @@ class noteControllers {
             if (!id) {
                 return res.status(400).json({error: 'Note not found!'})
             }
+            await userModel.findByIdAndUpdate(req.id, { $inc: {noteTotal: -1} });
             res.status(200).json({message: 'Note deleted!'})
         } catch (error) {
             res.status(500).json({error: 'Internal Server Error!'})
