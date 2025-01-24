@@ -33,6 +33,24 @@ class adminControllers {
         responseReturn(res, 500, {error: 'Internal Server Error!'})
     }
   }
+  // End method
+  delete_user = async (req, res) => {
+    delay(500);
+    if (req.role !== 'admin') {
+        return responseReturn(res, 403, {error: 'Access Denied!'})
+    }
+    const {id} = req.params;
+    if (!id) {
+        return responseReturn(res, 400, {error: 'User not found!'})
+    }
+    try {
+        await noteModel.deleteMany({userId: id});
+        await userModel.findByIdAndDelete(id);
+        responseReturn(res, 200, {message: 'User deleted successfully!'})
+    } catch (error) {
+        responseReturn(res, 500, {error: 'Internal Server Error!'})
+    }
+  }
 }
 
 module.exports = new adminControllers();
