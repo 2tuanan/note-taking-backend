@@ -2,9 +2,11 @@ const { responseReturn } = require("../utils/response");
 const noteModel = require("../models/noteModel");
 const { Types } = require('mongoose');
 const userModel = require("../models/userModel");
+const delay = require("../utils/delay");
 
 class noteControllers {
     add_note = async (req, res) => {
+        await delay(200);
         const {id} = req;
         const {title, content} = req.body;
         if (!title || !content) {

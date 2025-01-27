@@ -3,9 +3,11 @@ const userModel = require('../models/userModel');
 const { responseReturn } = require('../utils/response');
 const bcrypt = require('bcrypt');
 const { createToken } = require('../utils/tokenCreate');
+const delay = require('../utils/delay');
 
 class authControllers {
     admin_login = async (req, res) => {
+        await delay(200);
         const {email, password} = req.body;
         try {
             const admin = await adminModel.findOne({email}).select('+password');
@@ -32,6 +34,7 @@ class authControllers {
         }
     }
     user_login = async (req, res) => {
+        await delay(200);
         const {email, password} = req.body;
         try {
             const user = await userModel.findOne({email}).select('+password');

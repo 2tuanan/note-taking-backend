@@ -21,7 +21,7 @@ class adminControllers {
         return responseReturn(res, 403, {error: 'Access Denied!'})
     }
     const {id} = req.params;
-    await delay(500);
+    await delay(200);
     try {
         const deleteResult = await noteModel.deleteMany({userId: id});
         if (deleteResult.deletedCount === 0) {
@@ -35,7 +35,7 @@ class adminControllers {
   }
   // End method
   delete_user = async (req, res) => {
-    delay(500);
+    await delay(200);
     if (req.role !== 'admin') {
         return responseReturn(res, 403, {error: 'Access Denied!'})
     }
