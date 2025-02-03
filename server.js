@@ -6,8 +6,9 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const { dbConnect } = require('./utils/db');
 
+const frontPort = process.env.FRONTEND_PORT
 app.use(cors({
-    origin: ['http://localhost:3000'],
+    origin: [`http://localhost:${frontPort}`],
     credentials: true
 }))
 app.use(bodyParser.json());
